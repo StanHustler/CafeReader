@@ -1,0 +1,116 @@
+# ---------------------------------------------------------------------------
+# CafeReader
+# Track: lib/, test/, integration_test/, assets/, third_party/sqlite/,
+#        pubspec.yaml, pubspec.lock, platform projects, docs/.
+# Ignore: build output, local tooling caches, machine-specific config, secrets.
+# ---------------------------------------------------------------------------
+
+# --- OS / editor -----------------------------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.history
+.atom/
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Keep shared VS Code settings but ignore per-machine state.
+.vscode/*
+!.vscode/launch.json
+!.vscode/tasks.json
+!.vscode/settings.json
+!.vscode/extensions.json
+
+# --- Flutter / Dart --------------------------------------------------------
+.dart_tool/
+.packages
+.pub/
+.pub-cache/
+.fvm/
+build/
+coverage/
+doc/api/
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.flutter-plugins
+.flutter-plugins-dependencies
+.widget_preview/
+
+# Symbolication / obfuscation outputs
+app.*.symbols
+app.*.map.json
+
+# --- Platform build output & machine-specific config -----------------------
+# Android
+android/local.properties
+android/key.properties
+android/.gradle/
+android/.cxx/
+**/.cxx/
+android/captures/
+/android/app/debug
+/android/app/profile
+/android/app/release
+**/*.keystore
+**/*.jks
+
+# macOS
+macos/Pods/
+macos/Flutter/ephemeral/
+**/dgph
+**/xcuserdata/
+
+# Windows
+windows/flutter/ephemeral/
+windows/**/x64/
+windows/**/x86/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+*.VC.db
+*.VC.VC.opendb
+*.[Cc]ache
+!*.[Cc]ache/
+
+# --- Release artifacts -----------------------------------------------------
+# Built installers / zips. Remove this line if releases should be versioned.
+/dist/
+
+# --- Local runtime data ----------------------------------------------------
+# Databases, journals and backups created while running the app.
+*.db
+*.db-journal
+*.db-wal
+*.db-shm
+*.sqlite
+*.sqlite3
+# Test fixtures are source, keep them.
+!test/fixtures/**
+
+# --- Secrets ---------------------------------------------------------------
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+secrets.json
+
+# --- Misc local artifacts --------------------------------------------------
+*.log
+*.tmp
+*.bak
+*.pyc
+*.class
+.tmp_*
+/tmp/

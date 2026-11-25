@@ -1,0 +1,114 @@
+name: cafereader
+description: "A local-first English reader and vocabulary companion."
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.7
+
+# Dependencies specify other packages that your package needs in order to work.
+# To automatically upgrade your package dependencies to the latest versions
+# consider running `flutter pub upgrade --major-versions`. Alternatively,
+# dependencies can be manually updated by changing the version numbers below to
+# the latest version available on pub.dev. To see which dependencies have newer
+# versions available, run `flutter pub outdated`.
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  cupertino_icons: ^1.0.8
+  flutter_riverpod: 2.6.1
+  drift: ^2.35.4
+  sqlite3_flutter_libs: ^0.6.0+eol
+  path_provider: ^2.1.6
+  path: ^1.9.1
+  file_picker: ^13.3.3
+  archive: ^4.6.0
+  xml: ^7.1.0
+  crypto: ^3.0.8
+  http: ^1.6.0
+  flutter_secure_storage: ^11.2.0
+  url_launcher: ^6.3.3
+  uuid: ^4.6.0
+  intl: ^0.20.3
+  html: ^0.15.7
+  share_plus: ^13.3.1
+  sqlite3: ^3.9.1
+  package_info_plus: ^10.2.2
+  file_selector: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  # The "flutter_lints" package below contains a set of recommended lints to
+  # encourage good coding practices. The lint set provided by the package is
+  # activated in the `analysis_options.yaml` file located at the root of your
+  # package. See that file for information about deactivating specific lint
+  # rules and activating additional ones.
+  flutter_lints: ^6.0.0
+  drift_dev: ^2.35.3
+  build_runner: ^2.17.1
+  mocktail: ^1.0.5
+  integration_test:
+    sdk: flutter
+
+# For information on the generic Dart part of this file, see the
+# following page: https://dart.dev/tools/pub/pubspec
+
+# The following section is specific to Flutter packages.
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/dictionary/lemmas.txt
+    - assets/dictionary/glosses.tsv.gz
+    - assets/dictionary/WORDNET_LICENSE.txt
+    - assets/dictionary/wordnet.png
+    - assets/fonts/OFL.txt
+    - assets/branding/icon.png
+
+  fonts:
+    - family: Literata
+      fonts:
+        - asset: assets/fonts/Literata-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Literata-SemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/Literata-Bold.ttf
+          weight: 700
+
+hooks:
+  user_defines:
+    sqlite3:
+      source: source
+      path: third_party/sqlite/sqlite3.c
+      defines:
+        defines:
+          - SQLITE_ENABLE_FTS5
+          - SQLITE_ENABLE_MATH_FUNCTIONS
+          - SQLITE_DQS=0
+          - SQLITE_DEFAULT_MEMSTATUS=0
+          - SQLITE_TEMP_STORE=2
+          - SQLITE_MAX_EXPR_DEPTH=0
+          - SQLITE_OMIT_DEPRECATED
+          - SQLITE_OMIT_PROGRESS_CALLBACK
+          - SQLITE_OMIT_SHARED_CACHE
+          - SQLITE_USE_ALLOCA
