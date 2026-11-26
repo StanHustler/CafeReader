@@ -281,6 +281,10 @@ class MarkedParagraph extends StatelessWidget {
 
 /// Computes the rounded boxes a word occupies. Shared by the fill and stroke
 /// painters so both land on exactly the same geometry.
+///
+/// [leftLimit] / [rightLimit] keep the boxes inside the text content box. The
+/// reader clips its text with a tight rect, so a mark that grew past the
+/// column edge (the first or last word on a line) would lose its outer pixel.
 List<RRect> _wordBoxes(
   TextPainter layout,
   int start,
@@ -288,6 +292,8 @@ List<RRect> _wordBoxes(
   double targetHeight, {
   double padding = 0.8,
   double radius = 3.5,
+  double leftLimit = 0,
+  double rightLimit = double.infinity,
 }) {
   final boxes = layout.getBoxesForSelection(
     TextSelection(baseOffset: start, extentOffset: end),
@@ -298,10 +304,17 @@ List<RRect> _wordBoxes(
       0.0,
       double.infinity,
     );
+    final left = box.left - padding < leftLimit
+        ? leftLimit
+        : box.left - padding;
+    final right = box.right + padding > rightLimit
+        ? rightLimit
+        : box.right + padding;
+    if (right <= left) continue;
     final rect = Rect.fromLTRB(
-      box.left - padding,
+      left,
       box.top + verticalInset - padding / 2,
-      box.right + padding,
+      right,
       box.bottom - verticalInset + padding / 2,
     );
     result.add(RRect.fromRectAndRadius(rect, Radius.circular(radius)));
@@ -352,6 +365,7 @@ class _MarkFillPainter extends CustomPainter {
         range.start,
         range.end,
         targetHeight,
+        rightLimit: maxWidth,
       )) {
         canvas.drawRRect(box, paint);
       }
@@ -402,6 +416,8 @@ class _MarkStrokePainter extends CustomPainter {
         range.start,
         range.end,
         targetHeight,
+        leftLimit: 0.6,
+        rightLimit: maxWidth - 0.6,
       )) {
         canvas.drawRRect(box, paint);
       }
@@ -418,6 +434,8 @@ class _MarkStrokePainter extends CustomPainter {
         targetHeight,
         padding: 1.6,
         radius: 4.5,
+        leftLimit: 0.9,
+        rightLimit: maxWidth - 0.9,
       )) {
         canvas.drawRRect(box, paint);
       }
